@@ -1,0 +1,264 @@
+{
+  "name": "WF-A: Meta Transform Registration",
+  "nodes": [
+    {
+      "id": "node-webhook",
+      "name": "Registration Form Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 400],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "meta-transform-register",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "webhookId": "meta-transform-register"
+    },
+    {
+      "id": "node-prepare",
+      "name": "Prepare Registrant Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [440, 400],
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            { "id": "1",  "name": "firstName",          "value": "={{ $json.body.firstName }}",   "type": "string" },
+            { "id": "2",  "name": "lastName",           "value": "={{ $json.body.lastName }}",    "type": "string" },
+            { "id": "3",  "name": "email",              "value": "={{ $json.body.email }}",       "type": "string" },
+            { "id": "4",  "name": "phone",              "value": "={{ $json.body.phone }}",       "type": "string" },
+            { "id": "5",  "name": "gender",             "value": "={{ $json.body.gender }}",      "type": "string" },
+            { "id": "6",  "name": "role",               "value": "={{ $json.body.role }}",        "type": "string" },
+            { "id": "7",  "name": "businessName",       "value": "={{ $json.body.businessName }}", "type": "string" },
+            { "id": "8",  "name": "First Name",         "value": "={{ $json.body.firstName }}",   "type": "string" },
+            { "id": "9",  "name": "Last Name",          "value": "={{ $json.body.lastName }}",    "type": "string" },
+            { "id": "10", "name": "Email",              "value": "={{ $json.body.email }}",       "type": "string" },
+            { "id": "11", "name": "Phone",              "value": "={{ $json.body.phone }}",       "type": "string" },
+            { "id": "12", "name": "Gender",             "value": "={{ $json.body.gender }}",      "type": "string" },
+            { "id": "13", "name": "Role",               "value": "={{ $json.body.role }}",        "type": "string" },
+            { "id": "14", "name": "Business Name",      "value": "={{ $json.body.businessName }}", "type": "string" },
+            { "id": "15", "name": "Sector",             "value": "={{ $json.body.sector }}",      "type": "string" },
+            { "id": "16", "name": "Business Age",       "value": "={{ $json.body.businessAge }}", "type": "string" },
+            { "id": "17", "name": "Employees",          "value": "={{ $json.body.employees }}",   "type": "string" },
+            { "id": "18", "name": "Revenue Generating", "value": "={{ $json.body.revenue }}",     "type": "string" },
+            { "id": "19", "name": "Meta Platforms",     "value": "={{ Array.isArray($json.body.metaPlatforms) ? $json.body.metaPlatforms.join(', ') : $json.body.metaPlatforms }}", "type": "string" },
+            { "id": "20", "name": "Facebook Page",      "value": "={{ $json.body.fbLink || '' }}", "type": "string" },
+            { "id": "21", "name": "Instagram Profile",  "value": "={{ $json.body.igLink || '' }}", "type": "string" },
+            { "id": "22", "name": "WhatsApp Number",    "value": "={{ $json.body.waNumber || '' }}", "type": "string" },
+            { "id": "23", "name": "Paid Ads (12mo)",    "value": "={{ $json.body.paidAds }}",     "type": "string" },
+            { "id": "24", "name": "Monthly Ad Spend",   "value": "={{ $json.body.adSpend }}",     "type": "string" },
+            { "id": "25", "name": "Objectives",         "value": "={{ Array.isArray($json.body.objectives) ? $json.body.objectives.join(', ') : $json.body.objectives }}", "type": "string" },
+            { "id": "26", "name": "Challenges",         "value": "={{ Array.isArray($json.body.challenges) ? $json.body.challenges.join(', ') : $json.body.challenges }}", "type": "string" },
+            { "id": "27", "name": "Heard About Via",    "value": "={{ $json.body.hearAbout }}",   "type": "string" },
+            { "id": "28", "name": "Referral Org",       "value": "={{ $json.body.referralOrg || '' }}", "type": "string" },
+            { "id": "29", "name": "Registered At",      "value": "={{ new Date().toISOString() }}", "type": "string" },
+            { "id": "30", "name": "Zoom Status",        "value": "PENDING",                       "type": "string" }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "node-sheet-write",
+      "name": "Write to Registrations Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [680, 400],
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Registrations",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData"
+        },
+        "options": {
+          "extraHeaders": "ignore"
+        }
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
+          "name": "Google Sheets - WYLDE"
+        }
+      }
+    },
+    {
+      "id": "node-zoom-register",
+      "name": "Register on Zoom Webinar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [920, 400],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.zoom.us/v2/webinars/84967247381/registrants",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "zoomOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"email\": \"{{ $('Prepare Registrant Data').item.json.email }}\",\n  \"first_name\": \"{{ $('Prepare Registrant Data').item.json.firstName }}\",\n  \"last_name\": \"{{ $('Prepare Registrant Data').item.json.lastName }}\",\n  \"phone\": \"{{ $('Prepare Registrant Data').item.json.phone }}\",\n  \"org\": \"{{ $('Prepare Registrant Data').item.json.businessName }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "credentials": {
+        "zoomOAuth2Api": {
+          "id": "ZOOM_OAUTH2_CREDENTIAL_ID",
+          "name": "Zoom OAuth2 - WYLDE"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "node-check-zoom",
+      "name": "Zoom Registration OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [1160, 400],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": false, "typeValidation": "loose" },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 300,
+              "operator": { "type": "number", "operation": "lt" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "node-sheet-registered",
+      "name": "Update Sheet - REGISTERED",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1400, 260],
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Registrations",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email":         "={{ $('Prepare Registrant Data').item.json.email }}",
+            "Zoom Status":   "REGISTERED",
+            "Zoom Join URL": "={{ $json.body.join_url || '' }}"
+          },
+          "matchingColumns": ["Email"],
+          "schema": []
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
+          "name": "Google Sheets - WYLDE"
+        }
+      }
+    },
+    {
+      "id": "node-sheet-failed",
+      "name": "Update Sheet - FAILED",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1400, 540],
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Registrations",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email":       "={{ $('Prepare Registrant Data').item.json.email }}",
+            "Zoom Status": "FAILED"
+          },
+          "matchingColumns": ["Email"],
+          "schema": []
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
+          "name": "Google Sheets - WYLDE"
+        }
+      }
+    },
+    {
+      "id": "node-respond",
+      "name": "Respond to Form",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1640, 400],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": true, \"message\": \"Registration received successfully\" }",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Registration Form Webhook":  { "main": [[{ "node": "Prepare Registrant Data",    "type": "main", "index": 0 }]] },
+    "Prepare Registrant Data":    { "main": [[{ "node": "Write to Registrations Sheet","type": "main", "index": 0 }]] },
+    "Write to Registrations Sheet":{ "main": [[{ "node": "Register on Zoom Webinar",  "type": "main", "index": 0 }]] },
+    "Register on Zoom Webinar":   { "main": [[{ "node": "Zoom Registration OK?",      "type": "main", "index": 0 }]] },
+    "Zoom Registration OK?": {
+      "main": [
+        [{ "node": "Update Sheet - REGISTERED", "type": "main", "index": 0 }],
+        [{ "node": "Update Sheet - FAILED",     "type": "main", "index": 0 }]
+      ]
+    },
+    "Update Sheet - REGISTERED":  { "main": [[{ "node": "Respond to Form",            "type": "main", "index": 0 }]] },
+    "Update Sheet - FAILED":      { "main": [[{ "node": "Respond to Form",            "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "meta": {
+    "note": "REMAINING PLACEHOLDERS (fill inside n8n after importing):\n1. YOUR_ZOOM_WEBINAR_ID — in the 'Register on Zoom Webinar' node URL\n2. GOOGLE_SHEETS_CREDENTIAL_ID — set up Google Sheets OAuth2 in n8n credentials\n3. ZOOM_OAUTH2_CREDENTIAL_ID — set up Zoom OAuth2 in n8n credentials (see setup steps)\n\nSheet ID is already set: 1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM\nNo manual Zoom token handling needed — n8n manages this automatically."
+  }
+}

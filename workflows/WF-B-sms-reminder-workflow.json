@@ -1,0 +1,178 @@
+{
+  "name": "WF-B: Monday SMS Session Reminder",
+  "nodes": [
+    {
+      "id": "node-schedule",
+      "name": "Every Monday 9AM EAT",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [200, 400],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [1],
+              "triggerAtHour": 6,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "node-get-registrants",
+      "name": "Get All Registrants",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [440, 400],
+      "parameters": {
+        "operation": "getAll",
+        "documentId": {
+          "__rl": true,
+          "value": "1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Registrations",
+          "mode": "name"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Zoom Status",
+              "lookupValue": "REGISTERED"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
+          "name": "Google Sheets - WYLDE"
+        }
+      }
+    },
+    {
+      "id": "node-session-info",
+      "name": "Determine This Week Session",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 400],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// ─────────────────────────────────────────────────────\n// Session schedule — update dates/topics if they change\n// ─────────────────────────────────────────────────────\nconst sessions = [\n  {\n    sendOnMonday: '2026-10-05',\n    sessionDate:  'Wednesday 7th October',\n    topic:        'Optimize Your Campaigns with Meta Advantage+'\n  },\n  {\n    sendOnMonday: '2026-10-12',\n    sessionDate:  'Wednesday 14th October',\n    topic:        'Optimize Your Ad Creatives with Advantage+'\n  },\n  {\n    sendOnMonday: '2026-10-19',\n    sessionDate:  'Wednesday 21st October',\n    topic:        'Opportunity Score'\n  },\n  {\n    sendOnMonday: '2026-10-26',\n    sessionDate:  'Wednesday 28th October',\n    topic:        'WhatsApp Business Platform for Effective Business Messaging'\n  },\n  {\n    sendOnMonday: '2026-11-02',\n    sessionDate:  'Wednesday 4th November',\n    topic:        'Increase Campaign Performance with Partnership Ads'\n  }\n];\n\n// Today's date in YYYY-MM-DD (EAT offset handled by trigger)\nconst today = new Date().toISOString().split('T')[0];\n\n// Find matching session for today's Monday\nconst session = sessions.find(s => s.sendOnMonday === today);\n\nif (!session) {\n  // Not a session week — stop workflow\n  return [];\n}\n\n// Attach session info to each registrant row\nconst items = $input.all();\nreturn items.map(item => ({\n  json: {\n    ...item.json,\n    sessionDate:  session.sessionDate,\n    topic:        session.topic,\n    smsMessage:   `Hi ${item.json['First Name']}, a friendly reminder that your next Meta Transform with AI session is ${session.sessionDate} at 11AM EAT. Topic: ${session.topic}. See you there! - WYLDE International`\n  }\n}));\n"
+      }
+    },
+    {
+      "id": "node-batch",
+      "name": "Batch 20 Per Request",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [920, 400],
+      "parameters": {
+        "batchSize": 20,
+        "options": {}
+      }
+    },
+    {
+      "id": "node-build-smslist",
+      "name": "Build Advanta SMS List",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1160, 400],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Build the smslist array for Advanta bulk endpoint\n// Phone numbers must be in international format without +: 2547XXXXXXXX\n\nconst ADVANTA_API_KEY   = 'YOUR_ADVANTA_API_KEY';\nconst ADVANTA_PARTNER_ID = 'YOUR_ADVANTA_PARTNER_ID';\nconst ADVANTA_SENDER_ID  = 'YOUR_ADVANTA_SENDER_ID';\n\nconst smslist = $input.all().map((item, index) => {\n  // Normalise phone: remove spaces, dashes, leading +\n  let phone = (item.json['Phone'] || '').replace(/[^0-9]/g, '');\n  // Convert 07XXXXXXXX -> 2547XXXXXXXX\n  if (phone.startsWith('0')) phone = '254' + phone.slice(1);\n  // Convert +254... -> 254...\n  if (phone.startsWith('254') === false) phone = '254' + phone;\n\n  return {\n    partnerID:    ADVANTA_PARTNER_ID,\n    apikey:       ADVANTA_API_KEY,\n    pass_type:    'plain',\n    clientsmsid:  index + 1,\n    mobile:       phone,\n    message:      item.json.smsMessage,\n    shortcode:    ADVANTA_SENDER_ID\n  };\n});\n\nreturn [{\n  json: {\n    apikey:    ADVANTA_API_KEY,\n    partnerID: ADVANTA_PARTNER_ID,\n    smslist:   smslist\n  }\n}];\n"
+      }
+    },
+    {
+      "id": "node-send-sms",
+      "name": "Send via Advanta Bulk API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1400, 400],
+      "parameters": {
+        "method": "POST",
+        "url": "https://quicksms.advantasms.com/api/services/sendbulk/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "node-log-sms",
+      "name": "Log SMS Batch Sent",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1640, 400],
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "SMS Log",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Sent At":        "={{ new Date().toISOString() }}",
+            "Batch Count":    "={{ $('Build Advanta SMS List').item.json.smslist.length }}",
+            "Advanta Status": "={{ $json.responses ? $json.responses[0]?.response_code : 'Check Advanta Dashboard' }}"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
+          "name": "Google Sheets - WYLDE"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every Monday 9AM EAT": {
+      "main": [[{ "node": "Get All Registrants",         "type": "main", "index": 0 }]]
+    },
+    "Get All Registrants": {
+      "main": [[{ "node": "Determine This Week Session", "type": "main", "index": 0 }]]
+    },
+    "Determine This Week Session": {
+      "main": [[{ "node": "Batch 20 Per Request",        "type": "main", "index": 0 }]]
+    },
+    "Batch 20 Per Request": {
+      "main": [[{ "node": "Build Advanta SMS List",      "type": "main", "index": 0 }]]
+    },
+    "Build Advanta SMS List": {
+      "main": [[{ "node": "Send via Advanta Bulk API",   "type": "main", "index": 0 }]]
+    },
+    "Send via Advanta Bulk API": {
+      "main": [[{ "node": "Log SMS Batch Sent",          "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "meta": {
+    "note": "PLACEHOLDERS TO FILL IN BEFORE ACTIVATING:\n1. 1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM — same sheet ID used in WF-A\n2. YOUR_ADVANTA_API_KEY — from Jesse\n3. YOUR_ADVANTA_PARTNER_ID — from Jesse\n4. YOUR_ADVANTA_SENDER_ID — from Jesse (e.g. WYLDE)\n5. GOOGLE_SHEETS_CREDENTIAL_ID — same credential as WF-A\n\nThe sheet needs two tabs:\n- 'Registrations' — where WF-A writes registrant data\n- 'SMS Log' — where this workflow logs each batch sent\n\nSMS fires only on the 5 exact Mondays before each session.\nIf triggered on any other Monday, the workflow returns empty and stops cleanly."
+  }
+}
