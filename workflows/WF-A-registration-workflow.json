@@ -147,7 +147,7 @@
             {
               "id": "21",
               "name": "referralOrg",
-              "value": "={{ $json.body.referralOrg || '' }}",
+              "value": "={{ $json.body.referralOrg || 'Other' }}",
               "type": "string"
             },
             {
@@ -160,6 +160,24 @@
               "id": "23",
               "name": "zoom_status",
               "value": "PENDING",
+              "type": "string"
+            },
+            {
+              "id": "24",
+              "name": "sessions",
+              "value": "={{ Array.isArray($json.body.sessions) ? $json.body.sessions.join(', ') : ($json.body.sessions || 'All Sessions') }}",
+              "type": "string"
+            },
+            {
+              "id": "25",
+              "name": "accommodations",
+              "value": "={{ $json.body.accommodations || 'No' }}",
+              "type": "string"
+            },
+            {
+              "id": "26",
+              "name": "accommodationsDetail",
+              "value": "={{ $json.body.accommodationsDetail || '' }}",
               "type": "string"
             }
           ]
@@ -487,7 +505,7 @@
         "nodeCredentialType": "zoomOAuth2Api",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{\n  JSON.stringify({\n    \"email\": $('Prepare Registrant Data').item.json.email,\n    \"first_name\": $('Prepare Registrant Data').item.json.firstName,\n    \"last_name\": $('Prepare Registrant Data').item.json.lastName,\n    \"phone\": $('Prepare Registrant Data').item.json.phone,\n    \"org\": $('Prepare Registrant Data').item.json.businessName,\n    \"custom_questions\": [\n      { \"title\": \"Name of your business \", \"value\": $('Prepare Registrant Data').item.json.businessName || \"Business\" },\n      { \"title\": \"Gender\", \"value\": $('Prepare Registrant Data').item.json.gender || \"Prefer not to state\" },\n      { \"title\": \"Business Name\", \"value\": $('Prepare Registrant Data').item.json.businessName || \"Business\" },\n      { \"title\": \"Business Sector\", \"value\": $('Prepare Registrant Data').item.json.sector || \"Other\" },\n      { \"title\": \"What is the age of your business?\", \"value\": $('Prepare Registrant Data').item.json.businessAge || \"Less than 2 years\" },\n      { \"title\": \"Number of Full-Time Employees\", \"value\": $('Prepare Registrant Data').item.json.employees || \"Sole Proprietor\" },\n      { \"title\": \"Is your business currently generating revenue?\", \"value\": $('Prepare Registrant Data').item.json.revenue || \"Yes\" },\n      { \"title\": \"What best describes your role in the business?\", \"value\": $('Prepare Registrant Data').item.json.role || \"Founder\" },\n      { \"title\": \"Which of the following Meta platforms does your business actively use? (Select all that apply)\", \"value\": $('Prepare Registrant Data').item.json.metaPlatforms || \"Facebook Business Page\" },\n      { \"title\": \"Has your business run paid advertising on Facebook or Instagram within the last 12 months?\", \"value\": $('Prepare Registrant Data').item.json.paidAds || \"No\" },\n      { \"title\": \"Approximately how much does your business spend on Facebook and Instagram advertising each month?\", \"value\": $('Prepare Registrant Data').item.json.adSpend || \"Less than KES 5,000\" },\n      { \"title\": \"What is your primary business objective over the next 12 months? (Select up to 3)\", \"value\": $('Prepare Registrant Data').item.json.objectives || \"Acquire new customers\" },\n      { \"title\": \"What challenges are you currently experiencing with your Facebook and Instagram advertising? (Select all that apply)\", \"value\": $('Prepare Registrant Data').item.json.challenges || \"I am not currently experiencing challenges\" },\n      { \"title\": \"Please select the sessions you want to attend.\", \"value\": \"All Sessions\" },\n      { \"title\": \"How did you hear about this program?\", \"value\": $('Prepare Registrant Data').item.json.hearAbout || \"WYLDE International\" },\n      { \"title\": \"If referred by a partner organisation, please indicate the organisation. \", \"value\": \"Other\" },\n      { \"title\": \"I confirm that:\", \"value\": \"I am the business owner or a senior decision-maker within the business and that the information provided is accurate and complete.\" },\n      { \"title\": \"Do you require any accommodations to support your participation in the training? (Wheelchair accessibility, accessible seating arrangements, visual or hearing support, or any other accommodations that would support your participation in the training.)\", \"value\": \"No\" }\n    ]\n  })\n}}",
+        "jsonBody": "={{\n  JSON.stringify({\n    \"email\": $('Prepare Registrant Data').item.json.email,\n    \"first_name\": $('Prepare Registrant Data').item.json.firstName,\n    \"last_name\": $('Prepare Registrant Data').item.json.lastName,\n    \"phone\": $('Prepare Registrant Data').item.json.phone,\n    \"org\": $('Prepare Registrant Data').item.json.businessName,\n    \"custom_questions\": [\n      { \"title\": \"Name of your business \", \"value\": $('Prepare Registrant Data').item.json.businessName || \"Business\" },\n      { \"title\": \"Gender\", \"value\": $('Prepare Registrant Data').item.json.gender || \"Prefer not to state\" },\n      { \"title\": \"Business Name\", \"value\": $('Prepare Registrant Data').item.json.businessName || \"Business\" },\n      { \"title\": \"Business Sector\", \"value\": $('Prepare Registrant Data').item.json.sector || \"Other\" },\n      { \"title\": \"What is the age of your business?\", \"value\": $('Prepare Registrant Data').item.json.businessAge || \"Less than 2 years\" },\n      { \"title\": \"Number of Full-Time Employees\", \"value\": $('Prepare Registrant Data').item.json.employees || \"Sole Proprietor\" },\n      { \"title\": \"Is your business currently generating revenue?\", \"value\": $('Prepare Registrant Data').item.json.revenue || \"Yes\" },\n      { \"title\": \"What best describes your role in the business?\", \"value\": $('Prepare Registrant Data').item.json.role || \"Founder\" },\n      { \"title\": \"Which of the following Meta platforms does your business actively use? (Select all that apply)\", \"value\": $('Prepare Registrant Data').item.json.metaPlatforms || \"Facebook Business Page\" },\n      { \"title\": \"Has your business run paid advertising on Facebook or Instagram within the last 12 months?\", \"value\": $('Prepare Registrant Data').item.json.paidAds || \"No\" },\n      { \"title\": \"Approximately how much does your business spend on Facebook and Instagram advertising each month?\", \"value\": $('Prepare Registrant Data').item.json.adSpend || \"Less than KES 5,000\" },\n      { \"title\": \"What is your primary business objective over the next 12 months? (Select up to 3)\", \"value\": $('Prepare Registrant Data').item.json.objectives || \"Acquire new customers\" },\n      { \"title\": \"What challenges are you currently experiencing with your Facebook and Instagram advertising? (Select all that apply)\", \"value\": $('Prepare Registrant Data').item.json.challenges || \"I am not currently experiencing challenges\" },\n      { \"title\": \"Please select the sessions you want to attend.\", \"value\": $('Prepare Registrant Data').item.json.sessions || \"All Sessions\" },\n      { \"title\": \"How did you hear about this program?\", \"value\": $('Prepare Registrant Data').item.json.hearAbout || \"WYLDE International\" },\n      { \"title\": \"If referred by a partner organisation, please indicate the organisation. \", \"value\": $('Prepare Registrant Data').item.json.referralOrg || \"Other\" },\n      { \"title\": \"I confirm that:\", \"value\": \"I am the business owner or a senior decision-maker within the business and that the information provided in this form is accurate and complete.\" },\n      { \"title\": \"Do you require any accommodations to support your participation in the training? (Wheelchair accessibility, accessible seating arrangements, visual or hearing support, or any other accommodations that would support your participation in the training.)\", \"value\": $('Prepare Registrant Data').item.json.accommodations || \"No\" }\n    ]\n  })\n}}",
         "options": {
           "response": {
             "response": {

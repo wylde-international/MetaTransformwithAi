@@ -521,25 +521,36 @@
             </div>
           </div>
 
-          <div class="form-section-heading">Session Schedule Confirmation</div>
+          <div class="form-section-heading">Please Select the Sessions You Want to Attend <span class="req">*</span></div>
           <div class="form-group">
-            <p style="font-size:14px;color:var(--text-muted);margin-bottom:14px">By registering, you'll have access to all five sessions below:</p>
-            <ul class="sessions-list">
-              <li><span class="s-num">1</span><div><div class="s-date">Wednesday, 7th October 2026 (11 A.M. – 1:00 P.M.)</div><div class="s-topic">Optimize Your Campaigns with Meta Advantage+</div></div></li>
-              <li><span class="s-num">2</span><div><div class="s-date">Wednesday, 14th October 2026 (11 A.M. – 1:00 P.M.)</div><div class="s-topic">Optimize Your Ad Creatives with Advantage+</div></div></li>
-              <li><span class="s-num">3</span><div><div class="s-date">Wednesday, 21st October 2026 (11 A.M. – 1:00 P.M.)</div><div class="s-topic">Opportunity Score</div></div></li>
-              <li><span class="s-num">4</span><div><div class="s-date">Wednesday, 28th October 2026 (11 A.M. – 1:00 P.M.)</div><div class="s-topic">WhatsApp Business Platform for Effective Business Messaging</div></div></li>
-              <li><span class="s-num">5</span><div><div class="s-date">Wednesday, 4th November 2026 (11 A.M. – 1:00 P.M.)</div><div class="s-topic">Increase Campaign Performance with Partnership Ads</div></div></li>
-            </ul>
-            <label class="check-label" style="margin-top:14px;border-color:var(--meta-blue);background:rgba(8,102,255,.04)">
-              <input type="checkbox" name="sessionAck" required />
-              <span style="font-weight:600">I acknowledge that I have read the session schedule above <span class="req">*</span></span>
-            </label>
+            <p style="font-size:14px;color:var(--text-muted);margin-bottom:14px">Select all sessions you plan to attend (all 5 are included with your registration):</p>
+            <div class="check-group" id="sessions-group">
+              <label class="check-label" style="align-items:flex-start;padding:12px 14px">
+                <input type="checkbox" name="sessions" value="Wednesday, 7th October 2026 (11 A.M. – 1:00 p.m.) - Optimize Your Campaigns with Meta Advantage+" checked />
+                <span><strong>Session 1:</strong> Wednesday, 7th October 2026 (11 A.M. – 1:00 p.m.) — Optimize Your Campaigns with Meta Advantage+</span>
+              </label>
+              <label class="check-label" style="align-items:flex-start;padding:12px 14px">
+                <input type="checkbox" name="sessions" value="Wednesday, 14th October 2026 (11 A.M. – 1:00 p.m.) - Optimize Your Ad Creatives with Advantage+" checked />
+                <span><strong>Session 2:</strong> Wednesday, 14th October 2026 (11 A.M. – 1:00 p.m.) — Optimize Your Ad Creatives with Advantage+</span>
+              </label>
+              <label class="check-label" style="align-items:flex-start;padding:12px 14px">
+                <input type="checkbox" name="sessions" value="Wednesday, 21st October 2026 (11 A.M. – 1:00 p.m.) - Opportunity Score" checked />
+                <span><strong>Session 3:</strong> Wednesday, 21st October 2026 (11 A.M. – 1:00 p.m.) — Opportunity Score</span>
+              </label>
+              <label class="check-label" style="align-items:flex-start;padding:12px 14px">
+                <input type="checkbox" name="sessions" value="Wednesday, 28th October 2026 (11 A.M. – 1:00 p.m.) - WhatsApp Business Platform for Effective Business Messaging" checked />
+                <span><strong>Session 4:</strong> Wednesday, 28th October 2026 (11 A.M. – 1:00 p.m.) — WhatsApp Business Platform for Effective Business Messaging</span>
+              </label>
+              <label class="check-label" style="align-items:flex-start;padding:12px 14px">
+                <input type="checkbox" name="sessions" value="Wednesday, 4th November 2026 (11 A.M. – 1:00 p.m.) - Increase Campaign Performance with Partnership Ads" checked />
+                <span><strong>Session 5:</strong> Wednesday, 4th November 2026 (11 A.M. – 1:00 p.m.) — Increase Campaign Performance with Partnership Ads</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-section-heading">How You Found Us</div>
           <div class="form-group">
-            <label for="hearAbout">How did you hear about this programme? <span class="req">*</span></label>
+            <label for="hearAbout">How did you hear about this program? <span class="req">*</span></label>
             <select id="hearAbout" name="hearAbout" required>
               <option value="" disabled selected>Select one</option>
               <option>WYLDE International</option>
@@ -547,6 +558,7 @@
               <option>Facebook</option>
               <option>Instagram</option>
               <option>LinkedIn</option>
+              <option>X</option>
               <option>WhatsApp</option>
               <option>Referral</option>
               <option>Email</option>
@@ -554,17 +566,42 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="referralOrg">If referred by a partner organisation, please name them</label>
-            <input type="text" id="referralOrg" name="referralOrg" placeholder="e.g. KEPSA, Kiambu County, KATO, KAM..." />
-            <div class="hint">Leave blank if not applicable.</div>
+            <label for="referralOrg">If referred by a partner organisation, please indicate the organisation <span class="req">*</span></label>
+            <select id="referralOrg" name="referralOrg" required>
+              <option value="" disabled selected>Select partner organisation (or Other)</option>
+              <option>AAR Insurance</option>
+              <option>Bakers Club</option>
+              <option>FOWEK (Federation of Women Entreprenuers Kenya)</option>
+              <option>ISA (International School of Advertising)</option>
+              <option>KATA (Kenya Association of Travel Agents)</option>
+              <option>KATO (Kenya Association of Tour Operators)</option>
+              <option>Kiambu County</option>
+              <option>Safaricom Business</option>
+              <option>Sinapis</option>
+              <option>Top Money Consulting</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-section-heading">Accommodations &amp; Support</div>
+          <div class="form-group">
+            <label>Do you require any accommodations to support your participation in the training? (Wheelchair accessibility, accessible seating arrangements, visual or hearing support, or any other accommodations that would support your participation in the training.) <span class="req">*</span></label>
+            <div class="radio-group inline">
+              <label class="radio-label"><input type="radio" name="accommodations" value="No" checked required /><span>No</span></label>
+              <label class="radio-label"><input type="radio" name="accommodations" value="Yes" /><span>Yes</span></label>
+            </div>
+            <div id="accommodations-detail-wrap" style="display:none;margin-top:12px">
+              <label for="accommodationsDetail" style="font-size:13px">If yes, please specify the accommodations you require</label>
+              <input type="text" id="accommodationsDetail" name="accommodationsDetail" placeholder="Please specify your requirements..." />
+            </div>
           </div>
 
           <div class="form-section-heading">Declarations &amp; Consent</div>
           <div class="consent-group">
-            <label class="consent-item"><input type="checkbox" name="consent1" required /><p>I confirm that I am the business owner or a senior decision-maker within the business and that the information provided is accurate and complete. <span class="req">*</span></p></label>
+            <label class="consent-item"><input type="checkbox" name="consent1" required /><p>I confirm that I am the business owner or a senior decision-maker within the business and that the information provided in this form is accurate and complete. <span class="req">*</span></p></label>
             <label class="consent-item"><input type="checkbox" name="consent2" required /><p>I consent to WYLDE International using the information provided for participant selection, programme administration, communication, monitoring, evaluation, learning, and impact assessment purposes. <span class="req">*</span></p></label>
-            <label class="consent-item"><input type="checkbox" name="consent3" required /><p>I consent to being photographed, filmed, and/or recorded during programme activities and for such content to be used by WYLDE International for promotional and knowledge-sharing purposes across digital channels. <span class="req">*</span></p></label>
-            <label class="consent-item"><input type="checkbox" name="consent4" required /><p>I consent to receiving newsletters, updates, and information about future programmes, events, and initiatives offered by WYLDE International. <span class="req">*</span></p></label>
+            <label class="consent-item"><input type="checkbox" name="consent3" required /><p>I consent to being photographed, filmed, and/or recorded during programme activities, and for such content to be used by WYLDE International for promotional, marketing, and communication purposes across digital, print, and other media platforms. <span class="req">*</span></p></label>
+            <label class="consent-item"><input type="checkbox" name="consent4" required /><p>I consent to receiving newsletters, updates, invitations, and information about future programmes, events, training opportunities, services, research, and other initiatives offered by WYLDE International. <span class="req">*</span></p></label>
           </div>
 
           <div id="form-error">⚠️ There was an issue submitting your registration. Please try again or contact us directly.</div>
@@ -686,6 +723,14 @@
   // CONFIG - paste the n8n webhook URL here when ready: paste the n8n webhook URL here when ready
   const N8N_WEBHOOK_URL = 'https://laddery-corrina-platier.ngrok-free.dev/webhook/meta-transform-register';
 
+  // Accommodations toggle
+  document.querySelectorAll('input[name="accommodations"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const wrap = document.getElementById('accommodations-detail-wrap');
+      if (wrap) wrap.style.display = (r.value === 'Yes' && r.checked) ? 'block' : 'none';
+    });
+  });
+
   // Max 3 objectives
   document.querySelectorAll('input[name="objectives"]').forEach(cb => {
     cb.addEventListener('change', () => {
@@ -693,6 +738,8 @@
       if (checked.length > 3) { cb.checked = false; alert('Please select a maximum of 3 objectives.'); }
     });
   });
+
+
 
   // Form submission
   document.getElementById('registration-form').addEventListener('submit', async function(e) {
