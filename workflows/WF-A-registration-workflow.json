@@ -2,11 +2,6 @@
   "name": "WF-A: Meta Transform Registration",
   "nodes": [
     {
-      "id": "node-webhook",
-      "name": "Registration Form Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [200, 400],
       "parameters": {
         "httpMethod": "POST",
         "path": "meta-transform-register",
@@ -15,61 +10,174 @@
           "allowedOrigins": "*"
         }
       },
+      "id": "ff89602f-decd-402d-bccb-f6e7280dd8d9",
+      "name": "Registration Form Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1200,
+        144
+      ],
       "webhookId": "meta-transform-register"
     },
     {
-      "id": "node-prepare",
-      "name": "Prepare Registrant Data",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [440, 400],
       "parameters": {
-        "mode": "manual",
-        "duplicateItem": false,
         "assignments": {
           "assignments": [
-            { "id": "1",  "name": "firstName",          "value": "={{ $json.body.firstName }}",   "type": "string" },
-            { "id": "2",  "name": "lastName",           "value": "={{ $json.body.lastName }}",    "type": "string" },
-            { "id": "3",  "name": "email",              "value": "={{ $json.body.email }}",       "type": "string" },
-            { "id": "4",  "name": "phone",              "value": "={{ $json.body.phone }}",       "type": "string" },
-            { "id": "5",  "name": "gender",             "value": "={{ $json.body.gender }}",      "type": "string" },
-            { "id": "6",  "name": "role",               "value": "={{ $json.body.role }}",        "type": "string" },
-            { "id": "7",  "name": "businessName",       "value": "={{ $json.body.businessName }}", "type": "string" },
-            { "id": "8",  "name": "First Name",         "value": "={{ $json.body.firstName }}",   "type": "string" },
-            { "id": "9",  "name": "Last Name",          "value": "={{ $json.body.lastName }}",    "type": "string" },
-            { "id": "10", "name": "Email",              "value": "={{ $json.body.email }}",       "type": "string" },
-            { "id": "11", "name": "Phone",              "value": "={{ $json.body.phone }}",       "type": "string" },
-            { "id": "12", "name": "Gender",             "value": "={{ $json.body.gender }}",      "type": "string" },
-            { "id": "13", "name": "Role",               "value": "={{ $json.body.role }}",        "type": "string" },
-            { "id": "14", "name": "Business Name",      "value": "={{ $json.body.businessName }}", "type": "string" },
-            { "id": "15", "name": "Sector",             "value": "={{ $json.body.sector }}",      "type": "string" },
-            { "id": "16", "name": "Business Age",       "value": "={{ $json.body.businessAge }}", "type": "string" },
-            { "id": "17", "name": "Employees",          "value": "={{ $json.body.employees }}",   "type": "string" },
-            { "id": "18", "name": "Revenue Generating", "value": "={{ $json.body.revenue }}",     "type": "string" },
-            { "id": "19", "name": "Meta Platforms",     "value": "={{ Array.isArray($json.body.metaPlatforms) ? $json.body.metaPlatforms.join(', ') : $json.body.metaPlatforms }}", "type": "string" },
-            { "id": "20", "name": "Facebook Page",      "value": "={{ $json.body.fbLink || '' }}", "type": "string" },
-            { "id": "21", "name": "Instagram Profile",  "value": "={{ $json.body.igLink || '' }}", "type": "string" },
-            { "id": "22", "name": "WhatsApp Number",    "value": "={{ $json.body.waNumber || '' }}", "type": "string" },
-            { "id": "23", "name": "Paid Ads (12mo)",    "value": "={{ $json.body.paidAds }}",     "type": "string" },
-            { "id": "24", "name": "Monthly Ad Spend",   "value": "={{ $json.body.adSpend }}",     "type": "string" },
-            { "id": "25", "name": "Objectives",         "value": "={{ Array.isArray($json.body.objectives) ? $json.body.objectives.join(', ') : $json.body.objectives }}", "type": "string" },
-            { "id": "26", "name": "Challenges",         "value": "={{ Array.isArray($json.body.challenges) ? $json.body.challenges.join(', ') : $json.body.challenges }}", "type": "string" },
-            { "id": "27", "name": "Heard About Via",    "value": "={{ $json.body.hearAbout }}",   "type": "string" },
-            { "id": "28", "name": "Referral Org",       "value": "={{ $json.body.referralOrg || '' }}", "type": "string" },
-            { "id": "29", "name": "Registered At",      "value": "={{ new Date().toISOString() }}", "type": "string" },
-            { "id": "30", "name": "Zoom Status",        "value": "PENDING",                       "type": "string" }
+            {
+              "id": "1",
+              "name": "firstName",
+              "value": "={{ $json.body.firstName }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "lastName",
+              "value": "={{ $json.body.lastName }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "phone",
+              "value": "={{ $json.body.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "gender",
+              "value": "={{ $json.body.gender }}",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "role",
+              "value": "={{ $json.body.role }}",
+              "type": "string"
+            },
+            {
+              "id": "7",
+              "name": "businessName",
+              "value": "={{ $json.body.businessName }}",
+              "type": "string"
+            },
+            {
+              "id": "8",
+              "name": "sector",
+              "value": "={{ $json.body.sector }}",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "businessAge",
+              "value": "={{ $json.body.businessAge }}",
+              "type": "string"
+            },
+            {
+              "id": "10",
+              "name": "employees",
+              "value": "={{ $json.body.employees }}",
+              "type": "string"
+            },
+            {
+              "id": "11",
+              "name": "revenue",
+              "value": "={{ $json.body.revenue }}",
+              "type": "string"
+            },
+            {
+              "id": "12",
+              "name": "metaPlatforms",
+              "value": "={{ Array.isArray($json.body.metaPlatforms) ? $json.body.metaPlatforms.join(', ') : $json.body.metaPlatforms }}",
+              "type": "string"
+            },
+            {
+              "id": "13",
+              "name": "fbLink",
+              "value": "={{ $json.body.fbLink || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "14",
+              "name": "igLink",
+              "value": "={{ $json.body.igLink || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "15",
+              "name": "waNumber",
+              "value": "={{ $json.body.waNumber || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "16",
+              "name": "paidAds",
+              "value": "={{ $json.body.paidAds }}",
+              "type": "string"
+            },
+            {
+              "id": "17",
+              "name": "adSpend",
+              "value": "={{ $json.body.adSpend }}",
+              "type": "string"
+            },
+            {
+              "id": "18",
+              "name": "objectives",
+              "value": "={{ Array.isArray($json.body.objectives) ? $json.body.objectives.join(', ') : $json.body.objectives }}",
+              "type": "string"
+            },
+            {
+              "id": "19",
+              "name": "challenges",
+              "value": "={{ Array.isArray($json.body.challenges) ? $json.body.challenges.join(', ') : $json.body.challenges }}",
+              "type": "string"
+            },
+            {
+              "id": "20",
+              "name": "hearAbout",
+              "value": "={{ $json.body.hearAbout }}",
+              "type": "string"
+            },
+            {
+              "id": "21",
+              "name": "referralOrg",
+              "value": "={{ $json.body.referralOrg || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "22",
+              "name": "registeredAt",
+              "value": "={{ new Date().toISOString() }}",
+              "type": "string"
+            },
+            {
+              "id": "23",
+              "name": "zoom_status",
+              "value": "PENDING",
+              "type": "string"
+            }
           ]
         },
         "options": {}
-      }
+      },
+      "id": "50cd2196-6a3c-464d-833e-129c833eb943",
+      "name": "Prepare Registrant Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -960,
+        144
+      ]
     },
     {
-      "id": "node-sheet-write",
-      "name": "Write to Registrations Sheet",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.5,
-      "position": [680, 400],
       "parameters": {
+        "authentication": "serviceAccount",
         "operation": "append",
         "documentId": {
           "__rl": true,
@@ -82,33 +190,304 @@
           "mode": "name"
         },
         "columns": {
-          "mappingMode": "autoMapInputData"
+          "mappingMode": "defineBelow",
+          "value": {
+            "First Name": "={{ $json.firstName }}",
+            "Last Name": "={{ $json.lastName }}",
+            "Email": "={{ $json.email }}",
+            "Phone": "={{ $json.phone }}",
+            "Gender": "={{ $json.gender }}",
+            "Role": "={{ $json.role }}",
+            "Business Name ": "={{ $json.businessName }}",
+            "Sector": "={{ $json.sector }}",
+            "Business Age": "={{ $json.businessAge }}",
+            "Employees": "={{ $json.employees }}",
+            "Revenue Generating": "={{ $json.revenue }}",
+            "Meta Platforms": "={{ $json.metaPlatforms }}",
+            "Facebook Page": "={{ $json.fbLink }}",
+            "Instagram Profile": "={{ $json.igLink }}",
+            "WhatsApp Number": "={{ $json.waNumber }}",
+            "Paid Ads (12mo)": "={{ $json.paidAds }}",
+            "Monthly Ad Spend": "={{ $json.adSpend }}",
+            "Objectives": "={{ $json.objectives }}",
+            "Challenges": "={{ $json.challenges }}",
+            "Heard About Via": "={{ $json.hearAbout }}",
+            "Referral Org": "={{ $json.referralOrg }}",
+            "Registered At": "={{ $json.registeredAt }}",
+            "Zoom Status": "PENDING"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "First Name",
+              "displayName": "First Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last Name",
+              "displayName": "Last Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Role",
+              "displayName": "Role",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Business Name ",
+              "displayName": "Business Name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sector",
+              "displayName": "Sector",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Business Age",
+              "displayName": "Business Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Employees",
+              "displayName": "Employees",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Revenue Generating",
+              "displayName": "Revenue Generating",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Meta Platforms",
+              "displayName": "Meta Platforms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Facebook Page",
+              "displayName": "Facebook Page",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Instagram Profile",
+              "displayName": "Instagram Profile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "WhatsApp Number",
+              "displayName": "WhatsApp Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Paid Ads (12mo)",
+              "displayName": "Paid Ads (12mo)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Monthly Ad Spend",
+              "displayName": "Monthly Ad Spend",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Objectives",
+              "displayName": "Objectives",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Challenges",
+              "displayName": "Challenges",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Heard About Via",
+              "displayName": "Heard About Via",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Referral Org",
+              "displayName": "Referral Org",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Registered At",
+              "displayName": "Registered At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Zoom Status",
+              "displayName": "Zoom Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Zoom Join URL",
+              "displayName": "Zoom Join URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
         },
-        "options": {
-          "extraHeaders": "ignore"
-        }
+        "options": {}
       },
+      "id": "6812aa5b-7caa-42e8-af36-512954e91dcf",
+      "name": "Write to Registrations Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -720,
+        144
+      ],
       "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
-          "name": "Google Sheets - WYLDE"
+        "googleApi": {
+          "id": "Hl75ulsjpsLFz5YT",
+          "name": "Google Sheets account"
         }
       }
     },
     {
-      "id": "node-zoom-register",
-      "name": "Register on Zoom Webinar",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [920, 400],
       "parameters": {
         "method": "POST",
-        "url": "=https://api.zoom.us/v2/webinars/84967247381/registrants",
+        "url": "https://api.zoom.us/v2/webinars/84967247381/registrants",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "zoomOAuth2Api",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"email\": \"{{ $('Prepare Registrant Data').item.json.email }}\",\n  \"first_name\": \"{{ $('Prepare Registrant Data').item.json.firstName }}\",\n  \"last_name\": \"{{ $('Prepare Registrant Data').item.json.lastName }}\",\n  \"phone\": \"{{ $('Prepare Registrant Data').item.json.phone }}\",\n  \"org\": \"{{ $('Prepare Registrant Data').item.json.businessName }}\"\n}",
+        "jsonBody": "={{\n  JSON.stringify({\n    \"email\": $('Prepare Registrant Data').item.json.email,\n    \"first_name\": $('Prepare Registrant Data').item.json.firstName,\n    \"last_name\": $('Prepare Registrant Data').item.json.lastName,\n    \"phone\": $('Prepare Registrant Data').item.json.phone,\n    \"org\": $('Prepare Registrant Data').item.json.businessName,\n    \"custom_questions\": [\n      { \"title\": \"Name of your business \", \"value\": $('Prepare Registrant Data').item.json.businessName || \"Business\" },\n      { \"title\": \"Gender\", \"value\": $('Prepare Registrant Data').item.json.gender || \"Prefer not to state\" },\n      { \"title\": \"Business Name\", \"value\": $('Prepare Registrant Data').item.json.businessName || \"Business\" },\n      { \"title\": \"Business Sector\", \"value\": $('Prepare Registrant Data').item.json.sector || \"Other\" },\n      { \"title\": \"What is the age of your business?\", \"value\": $('Prepare Registrant Data').item.json.businessAge || \"Less than 2 years\" },\n      { \"title\": \"Number of Full-Time Employees\", \"value\": $('Prepare Registrant Data').item.json.employees || \"Sole Proprietor\" },\n      { \"title\": \"Is your business currently generating revenue?\", \"value\": $('Prepare Registrant Data').item.json.revenue || \"Yes\" },\n      { \"title\": \"What best describes your role in the business?\", \"value\": $('Prepare Registrant Data').item.json.role || \"Founder\" },\n      { \"title\": \"Which of the following Meta platforms does your business actively use? (Select all that apply)\", \"value\": $('Prepare Registrant Data').item.json.metaPlatforms || \"Facebook Business Page\" },\n      { \"title\": \"Has your business run paid advertising on Facebook or Instagram within the last 12 months?\", \"value\": $('Prepare Registrant Data').item.json.paidAds || \"No\" },\n      { \"title\": \"Approximately how much does your business spend on Facebook and Instagram advertising each month?\", \"value\": $('Prepare Registrant Data').item.json.adSpend || \"Less than KES 5,000\" },\n      { \"title\": \"What is your primary business objective over the next 12 months? (Select up to 3)\", \"value\": $('Prepare Registrant Data').item.json.objectives || \"Acquire new customers\" },\n      { \"title\": \"What challenges are you currently experiencing with your Facebook and Instagram advertising? (Select all that apply)\", \"value\": $('Prepare Registrant Data').item.json.challenges || \"I am not currently experiencing challenges\" },\n      { \"title\": \"Please select the sessions you want to attend.\", \"value\": \"All Sessions\" },\n      { \"title\": \"How did you hear about this program?\", \"value\": $('Prepare Registrant Data').item.json.hearAbout || \"WYLDE International\" },\n      { \"title\": \"If referred by a partner organisation, please indicate the organisation. \", \"value\": \"Other\" },\n      { \"title\": \"I confirm that:\", \"value\": \"I am the business owner or a senior decision-maker within the business and that the information provided is accurate and complete.\" },\n      { \"title\": \"Do you require any accommodations to support your participation in the training? (Wheelchair accessibility, accessible seating arrangements, visual or hearing support, or any other accommodations that would support your participation in the training.)\", \"value\": \"No\" }\n    ]\n  })\n}}",
         "options": {
           "response": {
             "response": {
@@ -117,42 +496,351 @@
           }
         }
       },
+      "id": "82ff08db-1954-46a1-8d1d-5aa80c78d7ee",
+      "name": "Register on Zoom Webinar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -480,
+        144
+      ],
       "credentials": {
         "zoomOAuth2Api": {
-          "id": "ZOOM_OAUTH2_CREDENTIAL_ID",
-          "name": "Zoom OAuth2 - WYLDE"
+          "id": "kC9A1eab4YZqfshx",
+          "name": "Zoom account"
         }
       },
-      "onError": "continueErrorOutput"
+      "onError": "continueRegularOutput"
     },
     {
-      "id": "node-check-zoom",
-      "name": "Zoom Registration OK?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [1160, 400],
       "parameters": {
         "conditions": {
-          "options": { "caseSensitive": false, "typeValidation": "loose" },
+          "options": {
+            "caseSensitive": false,
+            "typeValidation": "loose"
+          },
           "conditions": [
             {
               "id": "cond-1",
               "leftValue": "={{ $json.statusCode }}",
               "rightValue": 300,
-              "operator": { "type": "number", "operation": "lt" }
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
             }
           ],
           "combinator": "and"
-        }
-      }
+        },
+        "options": {}
+      },
+      "id": "bab4f37c-685a-4905-bfdd-853a05206533",
+      "name": "Zoom Registration OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -240,
+        144
+      ]
     },
     {
-      "id": "node-sheet-registered",
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Registrations",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $('Prepare Registrant Data').item.json.email }}",
+            "Zoom Status": "REGISTERED",
+            "Zoom Join URL": "={{ $json.body.join_url || '' }}",
+            "row_number": 0
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "First Name",
+              "displayName": "First Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last Name",
+              "displayName": "Last Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Role",
+              "displayName": "Role",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Business Name ",
+              "displayName": "Business Name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sector",
+              "displayName": "Sector",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Business Age",
+              "displayName": "Business Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Employees",
+              "displayName": "Employees",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Revenue Generating",
+              "displayName": "Revenue Generating",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Meta Platforms",
+              "displayName": "Meta Platforms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Facebook Page",
+              "displayName": "Facebook Page",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Instagram Profile",
+              "displayName": "Instagram Profile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "WhatsApp Number",
+              "displayName": "WhatsApp Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Paid Ads (12mo)",
+              "displayName": "Paid Ads (12mo)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Monthly Ad Spend",
+              "displayName": "Monthly Ad Spend",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Objectives",
+              "displayName": "Objectives",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Challenges",
+              "displayName": "Challenges",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Heard About Via",
+              "displayName": "Heard About Via",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Referral Org",
+              "displayName": "Referral Org",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Registered At",
+              "displayName": "Registered At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Zoom Status",
+              "displayName": "Zoom Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Zoom Join URL",
+              "displayName": "Zoom Join URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "a9ad03aa-d36a-415c-9e31-ea2a86a64614",
       "name": "Update Sheet - REGISTERED",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
-      "position": [1400, 260],
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "Hl75ulsjpsLFz5YT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
       "parameters": {
+        "authentication": "serviceAccount",
         "operation": "update",
         "documentId": {
           "__rl": true,
@@ -167,64 +855,285 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Email":         "={{ $('Prepare Registrant Data').item.json.email }}",
-            "Zoom Status":   "REGISTERED",
-            "Zoom Join URL": "={{ $json.body.join_url || '' }}"
+            "Email": "={{ $('Prepare Registrant Data').item.json.email }}",
+            "Zoom Status": "FAILED",
+            "row_number": 0
           },
-          "matchingColumns": ["Email"],
-          "schema": []
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "First Name",
+              "displayName": "First Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last Name",
+              "displayName": "Last Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Role",
+              "displayName": "Role",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Business Name ",
+              "displayName": "Business Name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sector",
+              "displayName": "Sector",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Business Age",
+              "displayName": "Business Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Employees",
+              "displayName": "Employees",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Revenue Generating",
+              "displayName": "Revenue Generating",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Meta Platforms",
+              "displayName": "Meta Platforms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Facebook Page",
+              "displayName": "Facebook Page",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Instagram Profile",
+              "displayName": "Instagram Profile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "WhatsApp Number",
+              "displayName": "WhatsApp Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Paid Ads (12mo)",
+              "displayName": "Paid Ads (12mo)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Monthly Ad Spend",
+              "displayName": "Monthly Ad Spend",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Objectives",
+              "displayName": "Objectives",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Challenges",
+              "displayName": "Challenges",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Heard About Via",
+              "displayName": "Heard About Via",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Referral Org",
+              "displayName": "Referral Org",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Registered At",
+              "displayName": "Registered At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Zoom Status",
+              "displayName": "Zoom Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Zoom Join URL",
+              "displayName": "Zoom Join URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
         },
         "options": {}
       },
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
-          "name": "Google Sheets - WYLDE"
-        }
-      }
-    },
-    {
-      "id": "node-sheet-failed",
+      "id": "22ce531d-8df7-403b-9fed-6bafdd778a56",
       "name": "Update Sheet - FAILED",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
-      "position": [1400, 540],
-      "parameters": {
-        "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM",
-          "mode": "id"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "Registrations",
-          "mode": "name"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Email":       "={{ $('Prepare Registrant Data').item.json.email }}",
-            "Zoom Status": "FAILED"
-          },
-          "matchingColumns": ["Email"],
-          "schema": []
-        },
-        "options": {}
-      },
+      "position": [
+        0,
+        288
+      ],
       "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
-          "name": "Google Sheets - WYLDE"
+        "googleApi": {
+          "id": "Hl75ulsjpsLFz5YT",
+          "name": "Google Sheets account"
         }
       }
     },
     {
-      "id": "node-respond",
-      "name": "Respond to Form",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1,
-      "position": [1640, 400],
       "parameters": {
         "respondWith": "json",
         "responseBody": "={ \"success\": true, \"message\": \"Registration received successfully\" }",
@@ -232,33 +1141,112 @@
           "responseCode": 200,
           "responseHeaders": {
             "entries": [
-              { "name": "Access-Control-Allow-Origin", "value": "*" }
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
             ]
           }
         }
-      }
+      },
+      "id": "034cc2d9-10e0-48bc-a47b-8b36c935734a",
+      "name": "Respond to Form",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        144
+      ]
     }
   ],
   "connections": {
-    "Registration Form Webhook":  { "main": [[{ "node": "Prepare Registrant Data",    "type": "main", "index": 0 }]] },
-    "Prepare Registrant Data":    { "main": [[{ "node": "Write to Registrations Sheet","type": "main", "index": 0 }]] },
-    "Write to Registrations Sheet":{ "main": [[{ "node": "Register on Zoom Webinar",  "type": "main", "index": 0 }]] },
-    "Register on Zoom Webinar":   { "main": [[{ "node": "Zoom Registration OK?",      "type": "main", "index": 0 }]] },
-    "Zoom Registration OK?": {
+    "Registration Form Webhook": {
       "main": [
-        [{ "node": "Update Sheet - REGISTERED", "type": "main", "index": 0 }],
-        [{ "node": "Update Sheet - FAILED",     "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Prepare Registrant Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
-    "Update Sheet - REGISTERED":  { "main": [[{ "node": "Respond to Form",            "type": "main", "index": 0 }]] },
-    "Update Sheet - FAILED":      { "main": [[{ "node": "Respond to Form",            "type": "main", "index": 0 }]] }
+    "Prepare Registrant Data": {
+      "main": [
+        [
+          {
+            "node": "Write to Registrations Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write to Registrations Sheet": {
+      "main": [
+        [
+          {
+            "node": "Register on Zoom Webinar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Register on Zoom Webinar": {
+      "main": [
+        [
+          {
+            "node": "Zoom Registration OK?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zoom Registration OK?": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet - REGISTERED",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Sheet - FAILED",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet - REGISTERED": {
+      "main": [
+        [
+          {
+            "node": "Respond to Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet - FAILED": {
+      "main": [
+        [
+          {
+            "node": "Respond to Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1",
-    "saveManualExecutions": true
-  },
-  "meta": {
-    "note": "REMAINING PLACEHOLDERS (fill inside n8n after importing):\n1. YOUR_ZOOM_WEBINAR_ID — in the 'Register on Zoom Webinar' node URL\n2. GOOGLE_SHEETS_CREDENTIAL_ID — set up Google Sheets OAuth2 in n8n credentials\n3. ZOOM_OAUTH2_CREDENTIAL_ID — set up Zoom OAuth2 in n8n credentials (see setup steps)\n\nSheet ID is already set: 1_Dc2FOXpdI571mdZCTpTHfYi_Cti4SxrPLl_bXdNwwM\nNo manual Zoom token handling needed — n8n manages this automatically."
+    "binaryMode": "separate"
   }
 }
