@@ -24,13 +24,14 @@
     .btn-outline:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.6)}
 
     /* NAV */
-    nav{position:sticky;top:0;z-index:100;background:rgba(10,11,26,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);padding:14px 0}
-    nav .container{display:flex;align-items:center;justify-content:space-between}
-    .nav-logos{display:flex;align-items:center;gap:20px}
-    .nav-logo{height:32px;object-fit:contain}
-    .nav-divider{width:1px;height:24px;background:rgba(255,255,255,.2)}
-    .nav-cta{font-size:14px;font-weight:600;color:var(--white);background:var(--meta-blue);padding:10px 22px;border-radius:100px;transition:all .2s}
-    .nav-cta:hover{background:#0756dd}
+    nav{position:sticky;top:0;z-index:100;background:rgba(10,11,26,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);padding:12px 0}
+    nav .container{display:flex;align-items:center;justify-content:center}
+    .nav-logos{display:flex;align-items:center;gap:12px}
+    .nav-logo-badge{background:#fff;border-radius:8px;padding:4px 12px;display:inline-flex;align-items:center;justify-content:center;height:38px}
+    .nav-logo{height:28px;max-width:90px;object-fit:contain}
+    .nav-logo.meta{height:30px}
+    .nav-divider{width:1px;height:24px;background:rgba(255,255,255,.25)}
+
 
     /* HERO */
     .hero{background:var(--gradient-hero);padding:100px 0 80px;position:relative;overflow:hidden}
@@ -80,15 +81,21 @@
     .trainer-avatar{width:32px;height:32px;border-radius:50%;background:var(--gradient-accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white}
     .trainer-name{font-size:14px;font-weight:600;color:rgba(255,255,255,.8)}
 
-    /* PARTNERS */
-    .partners{padding:72px 0;background:var(--light-bg);border-top:1px solid var(--border)}
-    .partners-label{text-align:center;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:40px}
-    .partners-logos{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
-    .partner-logo-wrap{display:flex;align-items:center;justify-content:center;padding:16px 32px;background:var(--white);border-radius:var(--radius-md);border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.06);transition:all .3s;min-width:160px}
-    .partner-logo-wrap:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
-    .partner-logo-wrap img{height:48px;object-fit:contain}
-    .partner-logo-wrap.sndbx{background:#000;border-color:#333}
-    .partners-note{text-align:center;font-size:13px;color:var(--text-muted);margin-top:32px;font-style:italic}
+    /* PARTNERS CAROUSEL */
+    .partners{padding:72px 0;background:var(--light-bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
+    .partners-label{text-align:center;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--meta-blue);margin-bottom:32px}
+    .partner-carousel-wrap{overflow:hidden;position:relative;width:100%;mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);-webkit-mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent)}
+    .partners-carousel-track{display:flex;width:max-content;gap:24px;animation:marqueeScroll 26s linear infinite}
+    .partners-carousel-track:hover{animation-play-state:paused}
+    .partner-logo-card{background:#fff;border-radius:14px;padding:12px 28px;height:76px;min-width:170px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.06);transition:transform .3s,box-shadow .3s}
+    .partner-logo-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(8,102,255,0.12);border-color:rgba(8,102,255,0.25)}
+    .partner-logo-card img{max-height:44px;max-width:130px;width:auto;height:auto;object-fit:contain}
+    .partners-note{text-align:center;font-size:13px;color:var(--text-muted);margin-top:28px;font-style:italic}
+    @keyframes marqueeScroll{
+      0%{transform:translateX(0)}
+      100%{transform:translateX(-50%)}
+    }
+
 
     /* FORM */
     .form-section{padding:96px 0;background:var(--white)}
@@ -102,8 +109,8 @@
     .form-section-heading:first-child{margin-top:0}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
-    .form-group label{font-size:14px;font-weight:600;color:var(--text-body)}
-    .form-group .req{color:#EF4444;margin-left:2px}
+    .req, .form-group .req, .consent-item .req{color:#EF4444 !important;font-weight:700;margin-left:3px;font-size:15px;display:inline}
+
     .form-group input[type=text],.form-group input[type=email],.form-group input[type=tel],.form-group input[type=url],.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:15px;color:var(--text-body);background:var(--white);transition:all .2s;outline:none;-webkit-appearance:none;appearance:none}
     .form-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
     .form-group input:focus,.form-group select:focus{border-color:var(--meta-blue);box-shadow:0 0 0 3px rgba(8,102,255,.12)}
@@ -178,8 +185,7 @@
       .stat-row{grid-template-columns:1fr 1fr}
       .footer-sndbx-strip{flex-direction:column}
       .footer-bottom{flex-direction:column;text-align:center}
-      nav .container{gap:12px}
-      .nav-cta{font-size:12px;padding:8px 14px}
+      nav .container{gap:12px;justify-content:center}
       .hero{padding:64px 0 48px}
       .hero h1{letter-spacing:-0.5px}
       .hero-actions{flex-direction:column;align-items:stretch}
@@ -199,13 +205,20 @@
       .hero-pills{gap:8px}
       .hero-pill{font-size:13px;padding:8px 14px}
     }
+    @media(max-width:600px){
+      .nav-logos{gap:6px}
+      .nav-logo-badge{height:32px;padding:2px 8px}
+      .nav-logo{height:22px;max-width:65px}
+      .nav-logo.meta{height:24px}
+      .nav-divider{height:18px}
+    }
     @media(max-width:480px){
       .hero-dates{grid-template-columns:1fr}
       .stat-row{grid-template-columns:1fr}
-      .nav-logos{gap:10px}
       .badge{font-size:11px;padding:5px 12px}
       .hero-meta{gap:8px}
     }
+
   </style>
 </head>
 <body>
@@ -213,15 +226,18 @@
 <nav>
   <div class="container">
     <div class="nav-logos">
-      <div style="background:#fff;border-radius:8px;padding:4px 12px;display:flex;align-items:center;">
+      <div class="nav-logo-badge">
+        <img src="logo-meta.png" alt="Meta" class="nav-logo meta" />
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-logo-badge">
         <img src="logo-wylde.png" alt="WYLDE International" class="nav-logo" />
       </div>
       <div class="nav-divider"></div>
-      <div style="background:#fff;border-radius:8px;padding:4px 12px;display:flex;align-items:center;">
-        <img src="logo-meta.png" alt="Meta" class="nav-logo" style="height:26px;" />
+      <div class="nav-logo-badge">
+        <img src="logo-sndbx.png" alt="SNDBX" class="nav-logo" />
       </div>
     </div>
-    <a href="#register" class="nav-cta">Register Now - Free</a>
   </div>
 </nav>
 
@@ -358,29 +374,50 @@
 </section>
 
 <section class="partners">
-  <div class="container">
-    <p class="partners-label">Programme Partners</p>
-    <div class="partners-logos">
-      <!-- ═══ PARTNER LOGOS ═══════════════════════════════════════════════════
-           To add a new partner logo:
-           1. Upload the logo image file to the same folder as index.html
-           2. Copy one of the blocks below and paste it after the last one
-           3. For logos on dark backgrounds, add class="partner-logo-wrap sndbx"
-           Example:
-           <div class="partner-logo-wrap">
-             <img src="logo-newpartner.png" alt="Partner Name" />
-           </div>
-      ═══════════════════════════════════════════════════════════════════════ -->
-      <div class="partner-logo-wrap">
-        <img src="logo-wylde.png" alt="WYLDE International" />
+  <div class="container" style="max-width:100%;padding:0 20px;">
+    <p class="partners-label">Confirmed Programme Partners</p>
+    <div class="partner-carousel-wrap">
+      <div class="partners-carousel-track">
+        <!-- SET 1 (Starts with Safaricom Business) -->
+        <div class="partner-logo-card">
+          <img src="logo-safaricom.png" alt="Safaricom Business" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-sinapis.png" alt="Sinapis" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-kata.png" alt="KATA - Kenya Association of Travel Agents" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-bakers-club.png" alt="Bakers Club" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-fowek.png" alt="FOWEK - Federation of Women Entrepreneurs Kenya" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-top-money.png" alt="Top Money Consulting" />
+        </div>
+
+        <!-- SET 2 (Duplicate for seamless infinite marquee loop) -->
+        <div class="partner-logo-card">
+          <img src="logo-safaricom.png" alt="Safaricom Business" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-sinapis.png" alt="Sinapis" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-kata.png" alt="KATA - Kenya Association of Travel Agents" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-bakers-club.png" alt="Bakers Club" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-fowek.png" alt="FOWEK - Federation of Women Entrepreneurs Kenya" />
+        </div>
+        <div class="partner-logo-card">
+          <img src="logo-top-money.png" alt="Top Money Consulting" />
+        </div>
       </div>
-      <div class="partner-logo-wrap">
-        <img src="logo-meta.png" alt="Meta" />
-      </div>
-      <div class="partner-logo-wrap sndbx">
-        <img src="logo-sndbx.png" alt="SNDBX" />
-      </div>
-      <!-- ADD NEW PARTNER LOGOS HERE -->
     </div>
   </div>
 </section>
@@ -714,7 +751,6 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 WYLDE International. All rights reserved. Delivered in partnership with Meta.</p>
-      <p>Meta Transform with AI | Africa's First Meta AI Training Programme</p>
     </div>
   </div>
 </footer>
