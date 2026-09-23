@@ -177,60 +177,72 @@
     }
   ],
   "connections": {
-    "Every Monday & Wednesday 9AM EAT": [
-      [
-        {
-          "node": "Get All Registrants",
-          "type": "main",
-          "index": 0
-        }
+    "Every Monday & Wednesday 9AM EAT": {
+      "main": [
+        [
+          {
+            "node": "Get All Registrants",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
-    ],
-    "Get All Registrants": [
-      [
-        {
-          "node": "Determine This Week Session",
-          "type": "main",
-          "index": 0
-        }
+    },
+    "Get All Registrants": {
+      "main": [
+        [
+          {
+            "node": "Determine This Week Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
-    ],
-    "Determine This Week Session": [
-      [
-        {
-          "node": "Batch 100 Per Request",
-          "type": "main",
-          "index": 0
-        }
+    },
+    "Determine This Week Session": {
+      "main": [
+        [
+          {
+            "node": "Batch 100 Per Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
-    ],
-    "Batch 100 Per Request": [
-      [
-        {
-          "node": "Build Advanta SMS List",
-          "type": "main",
-          "index": 0
-        }
+    },
+    "Batch 100 Per Request": {
+      "main": [
+        [
+          {
+            "node": "Build Advanta SMS List",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
-    ],
-    "Build Advanta SMS List": [
-      [
-        {
-          "node": "Send via Advanta Bulk API",
-          "type": "main",
-          "index": 0
-        }
+    },
+    "Build Advanta SMS List": {
+      "main": [
+        [
+          {
+            "node": "Send via Advanta Bulk API",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
-    ],
-    "Send via Advanta Bulk API": [
-      [
-        {
-          "node": "Log SMS Batch Sent",
-          "type": "main",
-          "index": 0
-        }
+    },
+    "Send via Advanta Bulk API": {
+      "main": [
+        [
+          {
+            "node": "Log SMS Batch Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
-    ]
+    }
   },
   "active": false,
   "settings": {
