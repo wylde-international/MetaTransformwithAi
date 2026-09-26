@@ -144,11 +144,12 @@
     .testimonials-quote{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-md);padding:28px 32px;margin-bottom:48px;max-width:760px;margin-left:auto;margin-right:auto}
     .testimonials-quote p{font-size:18px;color:rgba(255,255,255,.85);line-height:1.75;font-style:italic;text-align:center}
     .testimonials-quote .quote-mark{font-size:48px;line-height:1;color:var(--meta-blue);opacity:.5;text-align:center;margin-bottom:8px}
-    .videos-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
-    .video-card{border-radius:var(--radius-md);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.4)}
-    .video-card .video-label{padding:16px 20px;background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:600;color:rgba(255,255,255,.8)}
-    .video-card .video-label span{color:var(--meta-blue);font-size:12px;display:block;margin-top:2px;font-weight:400}
-    .video-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+    .videos-grid{display:grid;grid-template-columns:repeat(4, 1fr);gap:24px}
+    .video-card{border-radius:var(--radius-md);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.4);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);transition:transform .3s,box-shadow .3s}
+    .video-card:hover{transform:translateY(-4px);box-shadow:0 12px 48px rgba(8,102,255,.2);border-color:rgba(8,102,255,.3)}
+    .video-card .video-label{padding:14px 16px;background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:700;color:rgba(255,255,255,.9)}
+    .video-card .video-label span{color:var(--meta-blue);font-size:12px;display:block;margin-top:2px;font-weight:500}
+    .video-wrapper{position:relative;padding-bottom:177.77%;height:0;overflow:hidden;background:#000}
     .video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
     .testimonials-cta{text-align:center;margin-top:56px}
     .testimonials-cta p{color:rgba(255,255,255,.6);font-size:18px;margin-bottom:24px;font-weight:500}
@@ -174,9 +175,12 @@
     .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
     .footer-bottom p{font-size:13px;color:rgba(255,255,255,.3)}
 
+    @media(max-width:960px){
+      .videos-grid{grid-template-columns:repeat(2, 1fr) !important;gap:20px}
+    }
     @media(max-width:768px){
       .about-grid,.footer-grid{grid-template-columns:1fr}
-      .form-row,.videos-grid{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
       .schedule-card{grid-template-columns:48px 1fr}
       .schedule-card .session-trainer{display:none}
       .hero-dates{grid-template-columns:1fr 1fr}
@@ -209,6 +213,9 @@
       .nav-logo{height:22px;max-width:65px}
       .nav-logo.meta{height:24px}
       .nav-divider{height:18px}
+    }
+    @media(max-width:560px){
+      .videos-grid{grid-template-columns:1fr !important;max-width:340px;margin:0 auto}
     }
     @media(max-width:480px){
       .hero-dates{grid-template-columns:1fr}
@@ -703,27 +710,27 @@
 
     <div class="videos-grid">
       <div class="video-card">
-        <div class="video-label">Phase 1 Participant Testimonial<span>Meta Transform with AI | Nairobi, Kenya</span></div>
+        <div class="video-label">Brian Githehu<span>BKG Consulting</span></div>
         <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1MzNFWI42NLPA1RonwX0WvSrpJkVLFJ63/preview" title="Meta Transform with AI | Participant Testimonial 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/mUgIt44SxhI" title="Brian Githehu - BKG Consulting Testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
       <div class="video-card">
-        <div class="video-label">Phase 1 Participant Testimonial<span>Meta Transform with AI | Nairobi, Kenya</span></div>
+        <div class="video-label">Elisha Oranga<span>Orange Adventures</span></div>
         <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1xd1RswYUiJIhl3Xxlzs8zWHycB2oGkdV/preview" title="Meta Transform with AI | Participant Testimonial 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/J941Zr_maN8" title="Elisha Oranga - Orange Adventures Testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
       <div class="video-card">
-        <div class="video-label">Phase 1 Participant Testimonial<span>Meta Transform with AI | Nairobi, Kenya</span></div>
+        <div class="video-label">Jacqueline Njoroge<span>East Africa Packaging Hub</span></div>
         <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1_CIErLoPNovFC0UfKFI7OhEUbCEKo4Ri/preview" title="Meta Transform with AI | Participant Testimonial 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/YOaoL_eZFeo" title="Jacqueline Njoroge - East Africa Packaging Hub Testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
       <div class="video-card">
-        <div class="video-label">Phase 1 Participant Testimonial<span>Meta Transform with AI | Nairobi, Kenya</span></div>
+        <div class="video-label">Liz Mutuku<span>Hay Travels Kenya</span></div>
         <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1MLs05EjrwFhiecpCj-xrJ_rUBuIvg1rE/preview" title="Meta Transform with AI | Participant Testimonial 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/dLTBH5Mtm6U" title="Liz Mutuku - Hay Travels Kenya Testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
     </div>
