@@ -563,7 +563,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Primary business objective for the next 12 months <span class="req">*</span> <span style="font-weight:400;color:var(--text-muted)">(Select up to 3)</span></label>
+            <label>Primary business objective for the next 12 months <span class="req">*</span> <span style="font-weight:400;color:var(--text-muted)">(Select all that apply)</span></label>
             <div class="check-group">
               <label class="check-label"><input type="checkbox" name="objectives" value="Increase sales revenue" /><span>Increase sales revenue</span></label>
               <label class="check-label"><input type="checkbox" name="objectives" value="Acquire new customers" /><span>Acquire new customers</span></label>
@@ -800,16 +800,6 @@
       if (wrap) wrap.style.display = (r.value === 'Yes' && r.checked) ? 'block' : 'none';
     });
   });
-
-  // Max 3 objectives
-  document.querySelectorAll('input[name="objectives"]').forEach(cb => {
-    cb.addEventListener('change', () => {
-      const checked = document.querySelectorAll('input[name="objectives"]:checked');
-      if (checked.length > 3) { cb.checked = false; alert('Please select a maximum of 3 objectives.'); }
-    });
-  });
-
-
 
   // Form submission
   document.getElementById('registration-form').addEventListener('submit', async function(e) {
